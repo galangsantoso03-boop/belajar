@@ -1,52 +1,53 @@
 from db_manager import DatabaseManager
 
 def main():
-    db = DatabaseManager("127.0.0.1", "root", "", "test_db")
+    db = DatabaseManager("127.0.0.1" , "root", "", "test_db")
     db.connect()
 
-    print("=== LOGIN SISTEM ===")
-    username = input("Masukkan username: ")
-    password = input("Masukkan password: ")
-
+    print("=== LOGIN SYSTEM ===")
+    username = input("Masukkan Username: ")
+    password = input("Masukkan Password: ")
+    
     if not db.login(username, password):
-        print("Log in gagal. Periksa username dan password Anda.")
+        print("LOGIN GAGAL! Username atau Password salah.")
         db.close()
         return
     else:
-        print("Log in berhasil!")
+        print("LOGIN BERHASIL!")
+
 
     while True:
         print("\n=== MENU ===")
-        print("1. Tambahkan data")
-        print("2. Tampilkan data")
-        print("3. Update data")
-        print("4. Hapus data")
-        print("5. Logout")  
-    
-        pilihan = input("Pilih menu (1-5): ")
+        print("1. Tambahkan Data")
+        print("2. Lihat Data")
+        print("3. Update Data")     
+        print("4. Hapus Data")
+        print("5. Keluar")
+
+        pilihan = input("pilih (1-5): ")
 
         if pilihan == '1':
-            name = input("Masukkan nama: ")
-            age = input("Masukkan umur: ")
+            name = input("Masukan Nama: ")
+            age = input("Masukan Umur: ")
             db.create(name, age)
+
 
         elif pilihan == '2':
             db.read()
-    
+
         elif pilihan == '3':
-            id = input("Masukkan ID data yang ingin diupdate: ")
-            name = input("Masukkan nama baru: ")
-            age = input("Masukkan umur baru: ")
-            db.update(id, name, age)
+            data_id = input("Masukan ID yang ingin di update: ")
+            name = input("Masukan Nama baru: ")
+            age = input("Masukan Umur baru: ")
+            db.update(data_id, name, age)
 
         elif pilihan == '4':
-            id = input("Masukkan ID data yang ingin dihapus: ")
-            db.delete(id)
-    
+            data_id = input("Masukan ID yang ingin kamu hapus: ")
+            db.delete(data_id)
+
         elif pilihan == '5':
-            db.close()
-            print("Anda telah logout.")
-            break   
+            print("Keluar dari program.")
+            break
 
         else:
             print("Pilihan tidak valid. Silakan coba lagi.")
